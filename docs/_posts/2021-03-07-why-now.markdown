@@ -22,7 +22,7 @@ either forget, or just ignore it.
 
 So, what I really want is a sidescreen that constantly shows what meetings are
 coming up. The plan (there's always a plan) is to put a display on one of the
-may [Raspberry Pi's](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
+may [Raspberry Pis](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
 that seem to always be floating about the place... But I realise that most of my
 plans never come to be. And in any case, I believe in agile, so how do I know
 I would actually find it useful?
