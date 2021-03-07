@@ -9,6 +9,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    chronic (0.10.2)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -205,6 +206,9 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
+    midnight (1.0.0)
+      chronic (= 0.10.2)
+      numerizer (~> 0.1.1)
     minima (2.5.1)
       jekyll (>= 3.5, < 5.0)
       jekyll-feed (~> 0.9)
@@ -215,6 +219,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.11.1-x86_64-darwin)
       racc (~> 1.4)
+    numerizer (0.1.1)
     octokit (4.20.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
@@ -261,6 +266,7 @@ PLATFORMS
 DEPENDENCIES
   github-pages (~> 212)
   jekyll-feed (~> 0.12)
+  midnight
   minima (~> 2.5)
   tzinfo (~> 1.2)
   tzinfo-data
