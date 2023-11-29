@@ -5,6 +5,8 @@ author: Kaj
 
 ![Cat scaring robot]({{site.url}}/assets/images/2023-11-09/cat-robot.png)
 
+(This document is generated with the help of AI)
+
 If you're a cat owner, you may have faced the challenge of keeping your furry friends away from certain areas of your home. Whether it's the kitchen countertop, the delicate plants in your garden, or the laundry room, cats have a knack for getting into places they shouldn't be. But don't worry, there's a fun and innovative solution - creating a cat-scaring robot with Raspberry Pico and CircuitPython. In this article, we'll guide you through the process of building and programming your very own cat-scaring robot, using the power of Raspberry Pico and the simplicity of CircuitPython.## Understanding the Basics of Raspberry Pico and CircuitPython
 
 Welcome to the fascinating world of Raspberry Pico and CircuitPython! In this article, we will dive into the details of these incredible technologies and explore their capabilities. So, let's get started!
