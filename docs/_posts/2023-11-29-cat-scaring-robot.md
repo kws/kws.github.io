@@ -1,6 +1,5 @@
 ---
 title: Creating a Cat-Scaring Robot with Raspberry Pico and CircuitPython
-author: Kaj
 ---
 
 ![Cat scaring robot]({{site.url}}/assets/images/2023-11-09/cat-robot.png)

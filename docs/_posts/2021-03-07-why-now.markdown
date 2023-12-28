@@ -1,6 +1,5 @@
 ---
 title: Why now?
-author: Kaj
 ---
 
 So, I've been holding off creating a new website since the 90s. After all my old
