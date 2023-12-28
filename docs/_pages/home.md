@@ -34,7 +34,7 @@ feature_row:
   - image_path: /assets/images/kajlights-splash.png
     title: "KajLights.com"
     excerpt: 
-        I've always loved lights. Whether they are stars or stage lights. My dad was a lighting designer at the Central Theatre in Oslo, and I grew up around stage lights. I've always been fascinated by the way that light can be used to create a sense of space and atmosphere. One of my very first electronic projects was using the PIO expansion ports on the ZX Spectrum to directly drive a set of LEDs. Lately I've fallen in love with addressable LEDs and the Rasbperry Pico and all the fun things that you can do with them.
+        I've always loved lights. Whether they are stars or stage lights. My dad was a lighting designer at the Central Theatre in Oslo, and I grew up around stage lights. I've always been fascinated by the way that light can be used to create a sense of space and atmosphere. One of my very first electronic projects was using the Z80PIO expansion chip with the ZX Spectrum to directly drive a set of LEDs for the Christmas Tree. Lately I've fallen in love with addressable LEDs and the Rasbperry Pico and all the fun things that you can do with them.
 ai-art:
   - image_path: /assets/images/ai-art.png
     alt: An AI generated image of a large group of children looking conserned and pensive.
