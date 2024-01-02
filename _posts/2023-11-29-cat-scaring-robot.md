@@ -1,5 +1,13 @@
 ---
 title: Creating a Cat-Scaring Robot with Raspberry Pico and CircuitPython
+categories:
+    - AI
+tags:
+    - Raspberry Pi
+    - CircuitPython
+    - Raspberry Pico
+    - AI
+    - Joke
 ---
 
 ![Cat scaring robot]({{site.url}}/assets/images/2023-11-09/cat-robot.png)

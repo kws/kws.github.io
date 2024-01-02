@@ -14,7 +14,7 @@ rbenv install 2.7.8
 rbenv local 2.7.8
 ```
 
-You are now ready to build the site. Change into the docs directory.
+You are now ready to build the site. 
 
 ```bash
 

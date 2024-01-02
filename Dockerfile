@@ -15,6 +15,6 @@ bundle exec jekyll build "$@"\n\
 RUN chmod +x /usr/local/bin/serve /usr/local/bin/build
 
 VOLUME /app
-WORKDIR /app/docs
+WORKDIR /app
 
 EXPOSE 4000
