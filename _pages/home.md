@@ -5,7 +5,7 @@ title: About Kaj
 header:
   overlay_color: "#000"
   overlay_filter: "0.4"
-  overlay_image: /assets/images/workshop.png
+  overlay_image: /assets/images/workshop.jpeg
 #   actions:
 #     - label: "Learn More"
 #       url: "/about/"
@@ -16,12 +16,12 @@ intro:
         I'm lucky enough to have a job that I love, as well as a number of other projects that I'm passionate about.
         Here are some of the things that I'm currently working on.
 feature_row:
-  - image_path: assets/images/sf-vru.png
+  - image_path: assets/images/sf-vru.jpeg
     alt: An AI generated image of a large group of children looking conserned and pensive.
     title: Social Finance
     excerpt: 
         This is my day job where I have a split role as CIO and Director in the Data and Digital team. I lead the development of our data and digital strategy and oversee the delivery of our data and digital products. I also lead the development of our data science and AI capabilities. My CIO role is focused on ensuring that our technology and data infrastructure is fit for purpose and supports our business needs, as well as ensuring that we are compliant with relevant regulations.
-  - image_path: /assets/images/womad-telescope.png
+  - image_path: /assets/images/womad-telescope.jpeg
     alt: An AI generated image of two children admiring a telescope.
     title: Science Outreach
     excerpt: 
@@ -31,12 +31,12 @@ feature_row:
     # url: "#test-link"
     # btn_label: "Read More"
     # btn_class: "btn--primary"
-  - image_path: /assets/images/kajlights-splash.png
+  - image_path: /assets/images/kajlights-splash.jpeg
     title: "KajLights.com"
     excerpt: 
         I've always loved lights. Whether they are stars or stage lights. My dad was a lighting designer at the Central Theatre in Oslo, and I grew up around stage lights. I've always been fascinated by the way that light can be used to create a sense of space and atmosphere. One of my very first electronic projects was using the Z80PIO expansion chip with the ZX Spectrum to directly drive a set of LEDs for the Christmas Tree. Lately I've fallen in love with addressable LEDs and the Rasbperry Pico and all the fun things that you can do with them.
 ai-art:
-  - image_path: /assets/images/ai-art.png
+  - image_path: /assets/images/ai-art.jpeg
     alt: An AI generated image of a large group of children looking conserned and pensive.
     title: AI and Art
     excerpt: 
