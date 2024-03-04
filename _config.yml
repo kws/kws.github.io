@@ -17,9 +17,9 @@ masthead_title           : "K-SI.COM"
 subtitle                 : "Kaj Siebert's Personal Site"
 name                     : "Kaj Wik Siebert"
 description              : "Minimal Mistakes theme test."
-url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-# baseurl                  : "/test"
-repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+url                      : "https://www.k-si.com/"
+baseurl                  : ""
+repository               : "kws/kws.github.io"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "/assets/icons/apple-touch-icon.png" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 # breadcrumbs            : false # true, false (default)
@@ -85,9 +85,10 @@ social:
 
 # Analytics
 analytics:
-  provider               : false # false (default), "google", "google-universal", "google-gtag", "custom"
+  provider: "google-gtag"
   google:
-    tracking_id          :
+    tracking_id: "G-43X86K63EH"
+    anonymize_ip: false # default
 
 
 # Site Author
