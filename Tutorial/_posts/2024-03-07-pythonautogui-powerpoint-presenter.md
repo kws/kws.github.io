@@ -121,3 +121,5 @@ You can read more about the tools we've used:
 - [PyAutoGUI](https://pyautogui.readthedocs.io/en/latest/)
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
 - [QRCode](https://pypi.org/project/qrcode/)
+
+An implementation of this tutorial can be found at <https://github.com/kws/powerpoint-remote>
