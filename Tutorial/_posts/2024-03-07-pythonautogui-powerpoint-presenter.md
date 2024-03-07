@@ -3,7 +3,13 @@ title: "Controlling PowerPoint with Python, PyAutoGUI, and Flask"
 categories: Python Automation PowerPoint
 ---
 
-Ever found yourself needing to do a PowerPoint presentation but forgot your "clicker"? In this tutorial, we'll create a Python application that uses PyAutoGUI and Flask to build a web page with buttons to remotely control a PowerPoint presentation. You'll be able to advance slides, go back, jump to the first or last slide, and more, all from a web browser such as on your phone.
+Ever found yourself needing to do a PowerPoint presentation but forgot your "clicker"? Of course, as all conversations go these days, we immediately turned to: "Can we hook it up to ChatGPT?". After all, all that is needed is an API. Well, staying slightly more grounded, we decided to use Python and PyAutoGUI to control PowerPoint remotely.
+
+In this tutorial, we'll create a Python application that uses PyAutoGUI and Flask to build a web page with buttons to remotely control a PowerPoint presentation. You'll be able to advance slides, go back, jump to the first or last slide, and more, all from a web browser such as on your phone.
+
+ <!--more-->
+
+![An AI robot controlling powerpoint]({{site.url}}/assets/images/blogs/2024-03-07-robot-powerpoint.webp)
 
 ## Prerequisites
 
@@ -123,3 +129,7 @@ You can read more about the tools we've used:
 - [QRCode](https://pypi.org/project/qrcode/)
 
 An implementation of this tutorial can be found at <https://github.com/kws/powerpoint-remote>
+
+If you want to go further and do the full ChatGPT integration, check out FastAPI, which is a modern, fast (high-performance), web framework for building APIs with Python 3.7+ based on standard Python type hints: <https://fastapi.tiangolo.com/>.
+
+Happy presenting!
