@@ -96,7 +96,7 @@ author:
   name             : "Kaj Wik Siebert"
   avatar           : "/assets/images/kaj.jpg"
   bio              : "Senior technologist with a particular interest in how data and AI is used to empower vulnerable groups and individuals. I have a background in astrophysics, data science and software development."
-  location         : "London, UK"
+  location         : "London, UK &amp; Leiden, NL"
   links:
     - label: "Kaj Siebert's Personal Site"
       icon: "fas fa-fw fa-link"

@@ -20,7 +20,7 @@ feature_row:
     alt: An AI generated image of a large group of children looking conserned and pensive.
     title: Social Finance
     excerpt: 
-        This is my day job where I have a split role as CIO and Director in the Data and Digital team. I lead the development of our data and digital strategy and oversee the delivery of our data and digital products. I also lead the development of our data science and AI capabilities. My CIO role is focused on ensuring that our technology and data infrastructure is fit for purpose and supports our business needs, as well as ensuring that we are compliant with relevant regulations.
+      Up until I started my relocation to the Netherlands, this was my day job where I had a dual role as CIO and Director in the Data and Digital team. I led the development of our data and digital strategy and oversaw the delivery of our data and digital products. I also led the development of our data science and AI capabilities. My role as CIO focused on ensuring that our technology and data infrastructure was fit for purpose and supported our business needs, as well as ensuring that we were compliant with relevant regulations.
   - image_path: /assets/images/womad-telescope.jpeg
     alt: An AI generated image of two children admiring a telescope.
     title: Science Outreach
