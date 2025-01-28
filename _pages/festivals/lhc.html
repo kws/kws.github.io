@@ -1,0 +1,213 @@
+---
+permalink: /festivals/lhc/
+layout: splash
+---
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LHC Circle Overlay</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0uEQz8_-sZ9prUTfpr1odXwigdsiepkY"></script>
+    <style>
+        #map {
+            height: 100vh; /* Full-screen map */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="festivalSelect">Select Festival:</label>
+        <select id="festivalSelect">
+            <option value="0">PT1 - ATLAS</option>
+            <option value="1">WOMAD</option>
+            <option value="2">Latitude</option>
+            <option value="3">ROTOTOM Sunsplash</option>
+            <option value="4">Sonorama</option>
+        </select>
+
+        <label for="rotationSlider">Rotation:</label>
+        <input type="range" id="rotationSlider" min="0" max="360" value="0" step="1" disabled>
+    </div>
+    <div id="map"></div>
+    <script>
+        let map, lhcCircle, currentFestival, currentRotation = 0;
+        const radius = 4300; // Circle radius in meters (4.3 km)
+
+        // Detector points
+        const detectors = [
+            { name: 'PT1 - ATLAS', location: { lat: 46.23497502511518, lng: 6.0536309870679235 }, angle: 0 },
+            { name: 'PT2', location: { lat: 46.251544268663615, lng: 6.021434048433471 }, angle: 45 },
+            { name: 'PT3', location: { lat: 46.277518302316, lng: 6.012012123858463 }, angle: 88 },
+            { name: 'PT4', location: { lat: 46.30445011831323, lng: 6.037082600001055 }, angle: 140 },
+            { name: 'PT5 - CMS', location: { lat: 46.31026650910126, lng: 6.078887140749957 }, angle: 186 },
+            { name: 'PT6', location: { lat: 46.29351162288481, lng: 6.111756560082773 }, angle: 226 },
+            { name: 'PT7', location: { lat: 46.266418692548335, lng: 6.115151115340182 }, angle: 269 },
+            { name: 'PT8', location: { lat: 46.2417904558472, lng: 6.097942093891781 }, angle: 312 },
+        ];
+
+        festivals = [
+                { name: 'PT1 - ATLAS', location: detectors[0].location, angle: 10, allowRotation: false },
+                { name: 'WOMAD', location: { lat: 51.602270353740494, lng: -2.0824700883724336 }, angle: 0, allowRotation: true },
+                { name: 'Latitude', location: { lat:52.33500293970023, lng: 1.5922554283725179 }, angle: 0, allowRotation: true },
+                { name: 'ROTOTOM Sunsplash', location: { lat: 40.04813434251837, lng: 0.04666639990007046 }, angle: 0, allowRotation: true },
+                { name: 'Sonorama', location: { lat: 41.66894906422847, lng: -3.683864135430401 }, angle: 0, allowRotation: true },
+        ]
+
+
+        function initMap() {
+            currentFestival = festivals[0]
+            headingToCenter = currentFestival.allowRotation ? currentRotation : currentFestival.angle 
+            const center = computeDestinationPoint(currentFestival.location, headingToCenter, radius);
+
+            // Initialize the map
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: center,
+                mapTypeId: 'terrain',
+            });
+
+            // Add the circle
+            lhcCircle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillOpacity: 0,
+                map: map,
+                center: center,
+                radius: radius,
+            });
+
+            // Add event listeners
+            document.getElementById('festivalSelect').addEventListener('change', updateFestival);
+            document.getElementById('rotationSlider').addEventListener('input', updateRotation);
+
+            updateFestival(); // Initialize with the first festival
+        }
+
+        function updateFestival() {
+            const festivalIndex = document.getElementById('festivalSelect').value;
+            currentFestival = festivals[festivalIndex];
+            currentRotation = currentFestival.angle;
+
+            // Enable or disable the rotation slider
+            const rotationSlider = document.getElementById('rotationSlider');
+            rotationSlider.disabled = !currentFestival.allowRotation;
+            rotationSlider.value = currentRotation;
+
+            updateMap();
+        }
+
+        function updateRotation() {
+            currentRotation = parseInt(document.getElementById('rotationSlider').value, 10);
+            updateMap();
+        }
+
+        function updateMap() {
+            const pt1 = currentFestival.location;
+            const headingToCenter = currentRotation;
+            const center = computeDestinationPoint(pt1, headingToCenter, radius);
+
+            map.setCenter(center);
+            lhcCircle.setCenter(center);
+
+            const angles = detectors.map(detector => detector.angle);
+            const points = calculateDetectorPoints(center, radius, angles, headingToCenter, pt1);
+
+            // Clear existing markers
+            map.markers?.forEach(marker => marker.setMap(null));
+            map.markers = [];
+
+            // Add markers with custom icons
+            points.forEach((point, index) => {
+                const isPt1 = index === 0; // Highlight PT1
+                const marker = new google.maps.Marker({
+                    position: point,
+                    map: map,
+                    title: `PT${index + 1}`,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: isPt1 ? 10 : 6, // Larger icon for PT1
+                        fillColor: isPt1 ? '#FF0000' : '#0000FF', // Red for PT1, blue for others
+                        fillOpacity: 1,
+                        strokeWeight: 1,
+                    },
+                });
+                map.markers.push(marker);
+            });
+
+            // Add markers for each detector
+            detectors.forEach(detector => {
+                const marker = new google.maps.Marker({
+                    position: detector.location,
+                    map: map,
+                    title: detector.name,
+                });
+                map.markers.push(marker);
+            });
+        }
+
+        // Function to compute destination point given start point, heading, and distance
+        function computeDestinationPoint(start, heading, distance) {
+            const R = 6378137; // Earth's radius in meters
+            const δ = distance / R; // Angular distance in radians
+            const θ = (heading * Math.PI) / 180; // Convert heading to radians
+
+            const φ1 = (start.lat * Math.PI) / 180; // Convert latitude to radians
+            const λ1 = (start.lng * Math.PI) / 180; // Convert longitude to radians
+
+            const φ2 = Math.asin(
+                Math.sin(φ1) * Math.cos(δ) +
+                Math.cos(φ1) * Math.sin(δ) * Math.cos(θ)
+            );
+            const λ2 =
+                λ1 +
+                Math.atan2(
+                    Math.sin(θ) * Math.sin(δ) * Math.cos(φ1),
+                    Math.cos(δ) - Math.sin(φ1) * Math.sin(φ2)
+                );
+
+            return {
+                lat: (φ2 * 180) / Math.PI,
+                lng: (λ2 * 180) / Math.PI,
+            };
+        }
+
+        // Function to calculate equidistant points around a circle
+        function calculateCirclePoints(center, radius, numPoints, referencePoint) {
+            const points = [];
+            const angleStep = 360 / numPoints;
+
+            for (let i = 0; i < numPoints; i++) {
+                const angle = (i * angleStep) + 180;
+                const point = computeDestinationPoint(center, angle, radius);
+                points.push(point);
+            }
+            
+            // Ensure PT1 is exactly the first point (reference point)
+            points[0] = referencePoint;
+            return points;
+        }
+
+        // Function to calculate points around a circle based on specified angles
+        function calculateDetectorPoints(center, radius, angles, rotation, referencePoint) {
+            const points = [];
+
+            // Adjust angles by the rotation
+            const adjustedAngles = angles.map(angle => (angle + rotation + 180) % 360);
+
+            adjustedAngles.forEach((angle, index) => {
+                const point = computeDestinationPoint(center, angle, radius);
+                points.push(point);
+            });
+
+            // Ensure PT1 is exactly the first point (reference point)
+            points[0] = referencePoint;
+
+            return points;
+        }
+
+        // Initialize the map
+        window.onload = initMap;
+    </script>
+</body>
+</html>
