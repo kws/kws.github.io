@@ -1,0 +1,16 @@
+{
+  "Records": [
+    {
+      "cf": {
+        "request": {
+          "method": "GET",
+          "uri": "/index.html",
+          "headers": {
+            "host": [{ "key": "Host", "value": "original-host.com" }],
+            "user-agent": [{ "key": "User-Agent", "value": "UnitTest" }]
+          }
+        }
+      }
+    }
+  ]
+}

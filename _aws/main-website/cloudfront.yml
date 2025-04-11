@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFront distribution for k-si.com with Lambda@Edge function associations
+
+Parameters:
+  LambdaEdgeFunctionVersion:
+    Type: String
+    Description: "ARN of the published Lambda@Edge version (from SAM stack output)"
+
+Resources:
+  WebsiteDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Comment: "Main website"
+        Enabled: true
+        Aliases:
+          - www.k-si.com
+          - k-si.com
+        Origins:
+          - Id: thesis.k-si.com.s3-website.eu-west-2.amazonaws.com
+            DomainName: thesis.k-si.com.s3-website.eu-west-2.amazonaws.com
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: http-only
+              OriginSslProtocols: [SSLv3, TLSv1, TLSv1.1, TLSv1.2]
+              OriginReadTimeout: 30
+              OriginKeepaliveTimeout: 5
+          - Id: kws.github.io
+            DomainName: kws.github.io
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: https-only
+              OriginSslProtocols: [TLSv1.2]
+              OriginReadTimeout: 30
+              OriginKeepaliveTimeout: 5
+        DefaultCacheBehavior:
+          TargetOriginId: kws.github.io
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [HEAD, GET]
+          CachedMethods: [HEAD, GET]
+          Compress: true
+          LambdaFunctionAssociations:
+            - EventType: origin-request
+              LambdaFunctionARN: !Ref LambdaEdgeFunctionVersion
+              IncludeBody: false
+          CachePolicyId: 83da9c7e-98b4-4e11-a168-04f0df8e2c65
+          OriginRequestPolicyId: 216adef6-5c7f-47e4-b989-5492eafa07d3
+        CacheBehaviors:
+          - PathPattern: "/thesis*"
+            TargetOriginId: thesis.k-si.com.s3-website.eu-west-2.amazonaws.com
+            ViewerProtocolPolicy: redirect-to-https
+            AllowedMethods: [HEAD, GET]
+            CachedMethods: [HEAD, GET]
+            Compress: true
+            FunctionAssociations:
+              - EventType: viewer-request
+                FunctionARN: arn:aws:cloudfront::880346748439:function/strip-first-path
+            CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+        Logging:
+          Bucket: k-si-logs.s3.amazonaws.com
+          IncludeCookies: false
+          Prefix: cf/
+        ViewerCertificate:
+          ACMCertificateArn: arn:aws:acm:us-east-1:880346748439:certificate/4e06da00-1f08-47ea-a9ee-40749069aace
+          SSLSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        PriceClass: PriceClass_100
+        Restrictions:
+          GeoRestriction:
+            RestrictionType: none
+        HttpVersion: http2
+        IsIPV6Enabled: true

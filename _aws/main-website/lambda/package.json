@@ -1,0 +1,17 @@
+{
+  "name": "lambda-edge-function",
+  "version": "1.0.0",
+  "description": "My Lambda@Edge function",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "zip": "zip -r ../lambda.zip ."
+  },
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "type": "commonjs",
+  "devDependencies": {
+    "vitest": "^3.1.1"
+  }
+}
