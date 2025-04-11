@@ -45,6 +45,27 @@ Resources:
                 - logs:PutLogEvents
               Resource: arn:aws:logs:us-east-1:880346748439:log-group:/aws/lambda/*:*
 
+  StripPathRequestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cf-github-ksi-strip-path-request
+      Runtime: nodejs22.x
+      CodeUri: lambda/
+      Handler: viewer-request/strip-path.handler
+      MemorySize: 128
+      Timeout: 3
+      AutoPublishAlias: live
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: logs:CreateLogGroup
+              Resource: arn:aws:logs:us-east-1:880346748439:*
+            - Effect: Allow
+              Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource: arn:aws:logs:us-east-1:880346748439:log-group:/aws/lambda/*:*
+
 Outputs:
 
   LambdaEdgeHostHeaderVersion:
@@ -58,3 +79,10 @@ Outputs:
     Value: !Ref RedirectRewriterFunction.Version
     Export:
       Name: LambdaEdgeVersionArnRedirectRewriter
+
+  LambdaEdgeStripPathRequestVersion:
+    Description: "Lambda@Edge version ARN for CloudFront - Strip Path Request"
+    Value: !Ref StripPathRequestFunction.Version
+    Export:
+      Name: LambdaEdgeVersionArnStripPathRequest
+

@@ -1,7 +1,5 @@
-FUNCTION_NAME = cf-github-host-header
 REGION = us-east-1
 DIST_ID = E2KIUFX7MGDV9B
-ZIP_FILE = lambda.zip
 
 jstest:
 	cd lambda && npm install && npm test
@@ -9,6 +7,7 @@ jstest:
 test: build
 	sam local invoke HostHeaderFunction --event events/viewer-request.json
 	sam local invoke RedirectRewriterFunction --event events/viewer-redirect-response.json
+	sam local invoke StripPathRequestFunction --event events/viewer-request.json
 
 build:
 	sam build
@@ -16,9 +15,14 @@ build:
 deploy: build
 	sam deploy --config-file samconfig.toml --no-confirm-changeset --no-fail-on-empty-changeset
 
-publish:
-	$(eval VERSION := $(shell aws lambda publish-version --function-name $(FUNCTION_NAME) --region $(REGION) --query Version --output text))
-	echo "Published version: $(VERSION)"
+get-arns:
+	$(eval HOST_ARN := $(shell aws lambda publish-version --function-name cf-github-ksi-host-header --region $(REGION) --query FunctionArn --output text))
+	$(eval REDIRECT_ARN := $(shell aws lambda publish-version --function-name cf-github-ksi-redirect-rewriter --region $(REGION) --query FunctionArn --output text))
+	$(eval STRIP_PATH_ARN := $(shell aws lambda publish-version --function-name cf-github-ksi-strip-path-request --region $(REGION) --query FunctionArn --output text))
+
+	@echo "cf-github-ksi-host-header:       $(HOST_ARN)"
+	@echo "cf-github-ksi-redirect-rewriter: $(REDIRECT_ARN)"
+	@echo "cf-github-ksi-strip-path-request: $(STRIP_PATH_ARN)"
 
 update-distribution: publish
 	aws cloudfront get-distribution-config --id $(DIST_ID) > dist.json

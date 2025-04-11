@@ -2,9 +2,15 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: CloudFront distribution for k-si.com with Lambda@Edge function associations
 
 Parameters:
-  LambdaEdgeFunctionVersion:
+  HostHeaderFunctionVersion:
     Type: String
-    Description: "ARN of the published Lambda@Edge version (from SAM stack output)"
+    Description: "ARN of the published Host Header Lambda@Edge version (from SAM stack output)"
+  RedirectRewriterFunctionVersion:
+    Type: String
+    Description: "ARN of the published Redirect Rewriter Lambda@Edge version (from SAM stack output)"
+  StripPathRequestFunctionVersion:
+    Type: String
+    Description: "ARN of the published Strip Path Request Lambda@Edge version (from SAM stack output)"
 
 Resources:
   WebsiteDistribution:
@@ -43,7 +49,10 @@ Resources:
           Compress: true
           LambdaFunctionAssociations:
             - EventType: origin-request
-              LambdaFunctionARN: !Ref LambdaEdgeFunctionVersion
+              LambdaFunctionARN: !Ref HostHeaderFunctionVersion
+              IncludeBody: false
+            - EventType: origin-response
+              LambdaFunctionARN: !Ref RedirectRewriterFunctionVersion
               IncludeBody: false
           CachePolicyId: 83da9c7e-98b4-4e11-a168-04f0df8e2c65
           OriginRequestPolicyId: 216adef6-5c7f-47e4-b989-5492eafa07d3
@@ -56,7 +65,7 @@ Resources:
             Compress: true
             FunctionAssociations:
               - EventType: viewer-request
-                FunctionARN: arn:aws:cloudfront::880346748439:function/strip-first-path
+                LambdaFunctionARN: !Ref StripPathRequestFunctionVersion
             CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
         Logging:
           Bucket: k-si-logs.s3.amazonaws.com
