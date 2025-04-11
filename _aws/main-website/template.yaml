@@ -2,16 +2,38 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
 Resources:
+
   HostHeaderFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: cf-github-ksi-host-header
       Runtime: nodejs22.x
       CodeUri: lambda/
-      Handler: index.handler
+      Handler: viewer-request/rewrite-host.handler
       MemorySize: 128
       Timeout: 3
-      AutoPublishAlias: live  # <- Required for versioning
+      AutoPublishAlias: live
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: logs:CreateLogGroup
+              Resource: arn:aws:logs:us-east-1:880346748439:*
+            - Effect: Allow
+              Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource: arn:aws:logs:us-east-1:880346748439:log-group:/aws/lambda/*:*
+
+  RedirectRewriterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cf-github-ksi-redirect-rewriter
+      Runtime: nodejs22.x
+      CodeUri: lambda/
+      Handler: viewer-response/rewrite-redirects.handler
+      MemorySize: 128
+      Timeout: 3
+      AutoPublishAlias: live
       Policies:
         - Statement:
             - Effect: Allow
@@ -24,8 +46,15 @@ Resources:
               Resource: arn:aws:logs:us-east-1:880346748439:log-group:/aws/lambda/*:*
 
 Outputs:
-  LambdaEdgeFunctionVersion:
-    Description: "Lambda@Edge version ARN for CloudFront"
+
+  LambdaEdgeHostHeaderVersion:
+    Description: "Lambda@Edge version ARN for CloudFront - Host Header"
     Value: !Ref HostHeaderFunction.Version
     Export:
-      Name: LambdaEdgeVersionArn
+      Name: LambdaEdgeVersionArnHostHeader
+
+  LambdaEdgeRedirectRewriterVersion:
+    Description: "Lambda@Edge version ARN for CloudFront - Redirect Rewriter"
+    Value: !Ref RedirectRewriterFunction.Version
+    Export:
+      Name: LambdaEdgeVersionArnRedirectRewriter

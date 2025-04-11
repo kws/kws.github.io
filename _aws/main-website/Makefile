@@ -3,8 +3,12 @@ REGION = us-east-1
 DIST_ID = E2KIUFX7MGDV9B
 ZIP_FILE = lambda.zip
 
+jstest:
+	cd lambda && npm install && npm test
+
 test: build
 	sam local invoke HostHeaderFunction --event events/viewer-request.json
+	sam local invoke RedirectRewriterFunction --event events/viewer-redirect-response.json
 
 build:
 	sam build

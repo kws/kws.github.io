@@ -1,0 +1,34 @@
+{
+  "Records": [
+    {
+      "cf": {
+        "config": {
+          "distributionId": "EXAMPLE"
+        },
+        "request": {
+          "uri": "/",
+          "method": "GET",
+          "headers": {
+            "host": [
+              {
+                "key": "Host",
+                "value": "www.k-si.com"
+              }
+            ]
+          }
+        },
+        "response": {
+          "status": "301",
+          "headers": {
+            "location": [
+              {
+                "key": "Location",
+                "value": "https://kws.github.io/old-page"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

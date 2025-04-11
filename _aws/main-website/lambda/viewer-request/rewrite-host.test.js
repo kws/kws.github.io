@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { handler } from './index.mjs';
+import { handler } from './rewrite-host.js';
 
 describe('Lambda@Edge handler', () => {
   it('sets the Host header correctly', async () => {
